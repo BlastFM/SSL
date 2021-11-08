@@ -9,7 +9,7 @@ $valid_from = date(DATE_RFC2822,$certinfo['validFrom_time_t']);
 $valid_to = date(DATE_RFC2822,$certinfo['validTo_time_t']);
 echo $url." - SSL Certificate Valid From: ".$valid_from.PHP_EOL;
 echo $url." - SSL Certificate Valid To: ".$valid_to.PHP_EOL;
-if($certinfo['validTo_time_t'] < time()) {
+if($certinfo['validTo_time_t'] <= time()) {
 session_write_close();
 exec("certbot renew");
 session_start();
