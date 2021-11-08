@@ -1,5 +1,5 @@
 <?php
-    $url = "https://blastfm.net";
+    $url = "https://google.com";
     $orignal_parse = parse_url($url, PHP_URL_HOST);
     $get = stream_context_create(array("ssl" => array("capture_peer_cert" => TRUE)));
     $read = stream_socket_client("ssl://".$orignal_parse.":443", $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $get);
@@ -11,10 +11,9 @@
 	echo $url." - SSL Certificate Valid To: ".$valid_to.PHP_EOL;
 if($certinfo['validTo_time_t'] < time()) {
 	session_write_close();
-	exec("certbot renew;killall sc_serv;cd /etc/shoutcast;./sc_serv &");
+	exec("certbot renew");
 	session_start();
 	echo "One or more certificates were renewed.".PHP_EOL;
-// 1 0 * * * /usr/bin/php /usr/share/tools/ssl_renewal_check.php > /dev/null 2>&1
 } else {
 	echo "No certificates due for renewal.".PHP_EOL;
 }
