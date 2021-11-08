@@ -6,3 +6,7 @@ Upload this file to your server in the /usr/share/tools folder or wherever you p
 Cron job: 1 0 * * * /usr/bin/php /usr/share/tools/ssl_renewal_check.php > /dev/null 2>&1
 
 You can also run it directly from the command line with /usr/bin/php /usr/share/tools/ssl_renewal_check.php once it's uploaded but it is probably not going to be very useful to you to run it manually.
+
+We read the SSL certificate that is installed on the server for the domain name listed in $url and from the result we get the valid from and valid to dates from the certificate. We then check if the date/time is less than the current date/time, a sure indicator that your certificate has expired when this becomes true.
+
+If we are updating the certificate(s), remember that certbot renew will renew any certificates that are out of date, we end the current session, carry out the renewal and then restart sessions to prevent any session attacks or interference from outside sources as a security precaution.
