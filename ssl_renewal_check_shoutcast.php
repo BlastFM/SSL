@@ -8,7 +8,6 @@
 	echo $url." - SSL Certificate Valid From: ".date(DATE_RFC2822, $certinfo['validFrom_time_t']).PHP_EOL;
 	echo $url." - SSL Certificate Valid To: ".date(DATE_RFC2822, $certinfo['validTo_time_t']).PHP_EOL;
 if ($certinfo['validTo_time_t'] <= time() OR $certinfo['validFrom_time_t'] >= time()) {
-	session_write_close();
 	exec("sudo certbot renew && sudo killall sc_serv && sudo cd /etc/shoutcast && sudo ./sc_serv &");
 	echo "One or more SSL certificates were renewed.".PHP_EOL;
 } else {
